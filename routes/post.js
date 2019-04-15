@@ -49,4 +49,43 @@ router.post('', (req, res, next) => {
       })
 })
 
+router.patch('/:id', (req, res, next) => {
+   console.log(req.body.type);
+   postModel.find({ id: req.params.id })
+      .then(doc => {
+         if (doc.length > 0) {
+            console.log('doc', doc[0]);
+            let fields;
+            switch (req.body.type) {
+               case "liked":
+                  fields = { liked: !doc[0].liked, disliked: false }
+                  break;
+               case "disliked":
+                  fields = { disliked: !doc[0].disliked, liked: false }
+                  break;
+               case "bookmarked":
+                  fields = { bookmarked: !doc[0].bookmarked }
+                  break;
+               default:
+                  res.status(400).json({ message: 'unable to update documents', error: "Invalid action type" });
+                  next();
+            }
+            postModel.findOneAndUpdate({ id: req.params.id }, { $set: { ...fields } })
+               .then(response => {
+                  res.status('201').json({ message: 'updated successfully', data: response })
+               })
+               .catch(error => {
+                  console.log('error', error);
+                  res.status(400).json({ message: 'unable to update documents', error });
+               })
+         } else {
+            res.status(400).json({ message: 'unable to update documents', error: "Could not find a post with that id" });
+         }
+      })
+      .catch(error => {
+         console.log('error', error);
+         res.status(400).json({ message: 'unable to update documents', error });
+      })
+})
+
 module.exports = router;

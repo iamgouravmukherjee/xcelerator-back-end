@@ -26,11 +26,11 @@ router.get('/:id', (req, res, next) => {
 router.post('', (req, res, next) => {
 
    const paths = {
-      0: "https://www.pexels.com/photo/man-reading-a-newspaper-902194/",
-      1: "https://www.pexels.com/photo/man-sitting-on-red-wooden-chair-while-reading-newspaper-1323590/",
-      2: "https://www.pexels.com/photo/app-business-communication-connection-242492/",
-      3: "https://www.pexels.com/photo/administration-articles-bank-black-and-white-261949/",
-      4: "https://www.pexels.com/photo/gray-laptop-computer-near-journals-177557/"
+      0: "https://unsplash.com/photos/I79wWVFyhEQ",
+      1: "https://unsplash.com/photos/ihiEd-_4TNY",
+      2: "https://unsplash.com/photos/tVnm9I9jb8I",
+      3: "https://unsplash.com/photos/wyN0QFDiXw0",
+      4: "https://unsplash.com/photos/A32DH4B0FBY"
    }
 
    let docs = req.body.data;
